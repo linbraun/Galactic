@@ -4,15 +4,15 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
-#include "Paintball_StoughtonGameMode.generated.h"
+#include "GalacticGameMode.generated.h"
 
 UCLASS(minimalapi)
-class APaintball_StoughtonGameMode : public AGameModeBase
+class AGalacticGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
 
 public:
-	APaintball_StoughtonGameMode();
+	AGalacticGameMode();
 };
 
 

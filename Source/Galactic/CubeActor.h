@@ -4,17 +4,17 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "RuntimeMeshComponent.h" // Included runtime mesh generation - LS 1/23/23
-#include "RuntimeCubeActor.generated.h"
+#include "ProceduralMeshComponent.h" // Included procedural mesh generation - LS 1/23/23
+#include "CubeActor.generated.h"
 
 UCLASS()
-class PAINTBALL_STOUGHTON_API ARuntimeCubeActor : public AActor
+class GALACTIC_API ACubeActor : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	ARuntimeCubeActor();
+	ACubeActor();
 
 protected:
 	// Called when the game starts or when spawned
@@ -25,17 +25,17 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 /*
-Added the following for runtime mesh generation - LS 1/23/23
+Added the following for procedural mesh generation - LS 1/23/23
 */
 public:
 	virtual void PostActorCreated() override;
 	virtual void PostLoad() override;
 	virtual void GenerateBoxMesh();
 	virtual void CreateBoxMesh(FVector BoxRadius, TArray <FVector> & Vertices, TArray <int32> &
-		Triangles, TArray <FVector> & Normals, TArray <FVector2D> & UVs, TArray <FRuntimeMeshTangent> &
+		Triangles, TArray <FVector> & Normals, TArray <FVector2D> & UVs, TArray <FProcMeshTangent> &
 		Tangents, TArray <FColor> & Colors);
 private:
 	UPROPERTY(VisibleAnywhere)
-		URuntimeMeshComponent * mesh;
-
+		UProceduralMeshComponent * mesh;
+	
 };

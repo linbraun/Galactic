@@ -1,13 +1,13 @@
 // Copyright 1998-2017 Epic Games, Inc. All Rights Reserved.
 
-#include "Paintball_StoughtonHUD.h"
+#include "GalacticHUD.h"
 #include "Engine/Canvas.h"
 #include "Engine/Texture2D.h"
 #include "TextureResource.h"
 #include "CanvasItem.h"
 #include "UObject/ConstructorHelpers.h"
 
-APaintball_StoughtonHUD::APaintball_StoughtonHUD()
+AGalacticHUD::AGalacticHUD()
 {
 	// Set the crosshair texture
 	static ConstructorHelpers::FObjectFinder<UTexture2D> CrosshairTexObj(TEXT("/Game/FirstPerson/Textures/FirstPersonCrosshair"));
@@ -15,7 +15,7 @@ APaintball_StoughtonHUD::APaintball_StoughtonHUD()
 }
 
 
-void APaintball_StoughtonHUD::DrawHUD()
+void AGalacticHUD::DrawHUD()
 {
 	Super::DrawHUD();
 

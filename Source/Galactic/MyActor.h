@@ -9,7 +9,7 @@
 
 
 UCLASS()
-class PAINTBALL_STOUGHTON_API AMyActor : public AActor
+class GALACTIC_API AMyActor : public AActor
 {
 	GENERATED_BODY()
 	

@@ -4,15 +4,15 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/HUD.h"
-#include "Paintball_StoughtonHUD.generated.h"
+#include "GalacticHUD.generated.h"
 
 UCLASS()
-class APaintball_StoughtonHUD : public AHUD
+class AGalacticHUD : public AHUD
 {
 	GENERATED_BODY()
 
 public:
-	APaintball_StoughtonHUD();
+	AGalacticHUD();
 
 	/** Primary draw call for the HUD */
 	virtual void DrawHUD() override;

@@ -2,9 +2,9 @@
 
 using UnrealBuildTool;
 
-public class Paintball_Stoughton : ModuleRules
+public class Galactic : ModuleRules
 {
-	public Paintball_Stoughton(ReadOnlyTargetRules Target) : base(Target)
+	public Galactic(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 

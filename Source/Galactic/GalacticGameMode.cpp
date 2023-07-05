@@ -1,11 +1,11 @@
 // Copyright 1998-2017 Epic Games, Inc. All Rights Reserved.
 
-#include "Paintball_StoughtonGameMode.h"
-#include "Paintball_StoughtonHUD.h"
-#include "Paintball_StoughtonCharacter.h"
+#include "GalacticGameMode.h"
+#include "GalacticHUD.h"
+#include "GalacticCharacter.h"
 #include "UObject/ConstructorHelpers.h"
 
-APaintball_StoughtonGameMode::APaintball_StoughtonGameMode()
+AGalacticGameMode::AGalacticGameMode()
 	: Super()
 {
 	// set default pawn class to our Blueprinted character
@@ -13,5 +13,5 @@ APaintball_StoughtonGameMode::APaintball_StoughtonGameMode()
 	DefaultPawnClass = PlayerPawnClassFinder.Class;
 
 	// use our custom HUD class
-	HUDClass = APaintball_StoughtonHUD::StaticClass();
+	HUDClass = AGalacticHUD::StaticClass();
 }

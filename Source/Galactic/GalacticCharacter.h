@@ -8,12 +8,12 @@
 #include "FogActor.h" // Added fog access - LS 1/30/23
 #include "PixelShaderUsageExample.h"	// Added pixel shader access - LS 2/24/23
 #include "ComputeShaderUsageExample.h"	// Added compute shader access - LS 2/24/23
-#include "Paintball_StoughtonCharacter.generated.h"
+#include "GalacticCharacter.generated.h"
 
 class UInputComponent;
 
 UCLASS(config=Game)
-class APaintball_StoughtonCharacter : public ACharacter
+class AGalacticCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
@@ -50,7 +50,7 @@ class APaintball_StoughtonCharacter : public ACharacter
 	class UMotionControllerComponent* L_MotionController;
 
 public:
-	APaintball_StoughtonCharacter();
+	AGalacticCharacter();
 
 protected:
 	virtual void BeginPlay();

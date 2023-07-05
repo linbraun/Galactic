@@ -1,7 +1,7 @@
 // Copyright 1998-2017 Epic Games, Inc. All Rights Reserved.
 
-#include "Paintball_StoughtonCharacter.h"
-#include "Paintball_StoughtonProjectile.h"
+#include "GalacticCharacter.h"
+#include "GalacticProjectile.h"
 #include "Animation/AnimInstance.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -16,7 +16,7 @@ DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 //////////////////////////////////////////////////////////////////////////
 // APaintball_StoughtonCharacter
 
-APaintball_StoughtonCharacter::APaintball_StoughtonCharacter()
+AGalacticCharacter::AGalacticCharacter()
 {
 	// Added tick access - LS 1/30/23
 	PrimaryActorTick.bCanEverTick = true;
@@ -95,7 +95,7 @@ APaintball_StoughtonCharacter::APaintball_StoughtonCharacter()
 	TotalElapsedTime = 0;
 }
 
-void APaintball_StoughtonCharacter::BeginPlay()
+void AGalacticCharacter::BeginPlay()
 {
 	// Call the base class  
 	Super::BeginPlay();
@@ -126,7 +126,7 @@ void APaintball_StoughtonCharacter::BeginPlay()
 //////////////////////////////////////////////////////////////////////////
 // Input
 
-void APaintball_StoughtonCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
+void AGalacticCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
 {
 	// set up gameplay key bindings
 	check(PlayerInputComponent);
@@ -136,35 +136,35 @@ void APaintball_StoughtonCharacter::SetupPlayerInputComponent(class UInputCompon
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
 
 	// Bind fire event
-	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &APaintball_StoughtonCharacter::OnFire);
+	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &AGalacticCharacter::OnFire);
 
 	// Enable touchscreen input
 	EnableTouchscreenMovement(PlayerInputComponent);
 
-	PlayerInputComponent->BindAction("ResetVR", IE_Pressed, this, &APaintball_StoughtonCharacter::OnResetVR);
+	PlayerInputComponent->BindAction("ResetVR", IE_Pressed, this, &GalacticCharacter::OnResetVR);
 
 	// Bind movement events
-	PlayerInputComponent->BindAxis("MoveForward", this, &APaintball_StoughtonCharacter::MoveForward);
-	PlayerInputComponent->BindAxis("MoveRight", this, &APaintball_StoughtonCharacter::MoveRight);
+	PlayerInputComponent->BindAxis("MoveForward", this, &AGalacticCharacter::MoveForward);
+	PlayerInputComponent->BindAxis("MoveRight", this, &APGalacticCharacter::MoveRight);
 
 	// We have 2 versions of the rotation bindings to handle different kinds of devices differently
 	// "turn" handles devices that provide an absolute delta, such as a mouse.
 	// "turnrate" is for devices that we choose to treat as a rate of change, such as an analog joystick
 	PlayerInputComponent->BindAxis("Turn", this, &APawn::AddControllerYawInput);
-	PlayerInputComponent->BindAxis("TurnRate", this, &APaintball_StoughtonCharacter::TurnAtRate);
+	PlayerInputComponent->BindAxis("TurnRate", this, &AGalacticCharacter::TurnAtRate);
 	PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
-	PlayerInputComponent->BindAxis("LookUpRate", this, &APaintball_StoughtonCharacter::LookUpAtRate);
+	PlayerInputComponent->BindAxis("LookUpRate", this, &APGalacticCharacter::LookUpAtRate);
 
 	//ShaderPluginDemo Specific input mappings - LS 2/24/23
 	InputComponent->BindAction("SavePixelShaderOutput", IE_Pressed, this, &
-		APaintball_StoughtonCharacter::SavePixelShaderOutput);
+		AGalacticCharacter::SavePixelShaderOutput);
 	InputComponent->BindAction("SaveComputeShaderOutput", IE_Pressed, this, &
-		APaintball_StoughtonCharacter::SaveComputeShaderOutput);
+		AGalacticCharacter::SaveComputeShaderOutput);
 	InputComponent->BindAxis("ComputeShaderBlend", this, &
-		APaintball_StoughtonCharacter::ModifyComputeShaderBlend);
+		AGalacticCharacter::ModifyComputeShaderBlend);
 }
 
-void APaintball_StoughtonCharacter::OnFire()
+void AGalacticCharacter::OnFire()
 {
 /*
 	// try and fire a projectile
@@ -240,12 +240,12 @@ void APaintball_StoughtonCharacter::OnFire()
 	}
 }
 
-void APaintball_StoughtonCharacter::OnResetVR()
+void AGalacticCharacter::OnResetVR()
 {
 	UHeadMountedDisplayFunctionLibrary::ResetOrientationAndPosition();
 }
 
-void APaintball_StoughtonCharacter::BeginTouch(const ETouchIndex::Type FingerIndex, const FVector Location)
+void AGalacticCharacter::BeginTouch(const ETouchIndex::Type FingerIndex, const FVector Location)
 {
 	if (TouchItem.bIsPressed == true)
 	{
@@ -257,7 +257,7 @@ void APaintball_StoughtonCharacter::BeginTouch(const ETouchIndex::Type FingerInd
 	TouchItem.bMoved = false;
 }
 
-void APaintball_StoughtonCharacter::EndTouch(const ETouchIndex::Type FingerIndex, const FVector Location)
+void AGalacticCharacter::EndTouch(const ETouchIndex::Type FingerIndex, const FVector Location)
 {
 	if (TouchItem.bIsPressed == false)
 	{
@@ -273,7 +273,7 @@ void APaintball_StoughtonCharacter::EndTouch(const ETouchIndex::Type FingerIndex
 //Commenting this section out to be consistent with FPS BP template.
 //This allows the user to turn without using the right virtual joystick
 
-//void APaintball_StoughtonCharacter::TouchUpdate(const ETouchIndex::Type FingerIndex, const FVector Location)
+//void AGalacticCharacter::TouchUpdate(const ETouchIndex::Type FingerIndex, const FVector Location)
 //{
 //	if ((TouchItem.bIsPressed == true) && (TouchItem.FingerIndex == FingerIndex))
 //	{
@@ -308,7 +308,7 @@ void APaintball_StoughtonCharacter::EndTouch(const ETouchIndex::Type FingerIndex
 //	}
 //}
 
-void APaintball_StoughtonCharacter::MoveForward(float Value)
+void AGalacticCharacter::MoveForward(float Value)
 {
 	if (Value != 0.0f)
 	{
@@ -317,7 +317,7 @@ void APaintball_StoughtonCharacter::MoveForward(float Value)
 	}
 }
 
-void APaintball_StoughtonCharacter::MoveRight(float Value)
+void AGalacticCharacter::MoveRight(float Value)
 {
 	if (Value != 0.0f)
 	{
@@ -326,24 +326,24 @@ void APaintball_StoughtonCharacter::MoveRight(float Value)
 	}
 }
 
-void APaintball_StoughtonCharacter::TurnAtRate(float Rate)
+void AGalacticCharacter::TurnAtRate(float Rate)
 {
 	// calculate delta for this frame from the rate information
 	AddControllerYawInput(Rate * BaseTurnRate * GetWorld()->GetDeltaSeconds());
 }
 
-void APaintball_StoughtonCharacter::LookUpAtRate(float Rate)
+void AGalacticCharacter::LookUpAtRate(float Rate)
 {
 	// calculate delta for this frame from the rate information
 	AddControllerPitchInput(Rate * BaseLookUpRate * GetWorld()->GetDeltaSeconds());
 }
 
-bool APaintball_StoughtonCharacter::EnableTouchscreenMovement(class UInputComponent* PlayerInputComponent)
+bool AGalacticCharacter::EnableTouchscreenMovement(class UInputComponent* PlayerInputComponent)
 {
 	if (FPlatformMisc::SupportsTouchInput() || GetDefault<UInputSettings>()->bUseMouseForTouch)
 	{
-		PlayerInputComponent->BindTouch(EInputEvent::IE_Pressed, this, &APaintball_StoughtonCharacter::BeginTouch);
-		PlayerInputComponent->BindTouch(EInputEvent::IE_Released, this, &APaintball_StoughtonCharacter::EndTouch);
+		PlayerInputComponent->BindTouch(EInputEvent::IE_Pressed, this, &AGalacticCharacter::BeginTouch);
+		PlayerInputComponent->BindTouch(EInputEvent::IE_Released, this, &AGalacticCharacter::EndTouch);
 
 		//Commenting this out to be more consistent with FPS BP template.
 		//PlayerInputComponent->BindTouch(EInputEvent::IE_Repeat, this, &APaintball_StoughtonCharacter::TouchUpdate);
@@ -367,7 +367,7 @@ void APaintball_StoughtonCharacter::Tick(float DeltaTime)
 Added plugin shader on destroy - LS 2/24/23
 */
 //Do not forget cleanup :)
-void APaintball_StoughtonCharacter::BeginDestroy() {
+void AGalacticCharacter::BeginDestroy() {
 	Super::BeginDestroy();
 	if (PixelShading) {
 		delete PixelShading;
@@ -380,16 +380,16 @@ void APaintball_StoughtonCharacter::BeginDestroy() {
 /*
 Added saving functions - LS 2/24/23
 */
-void APaintball_StoughtonCharacter::SavePixelShaderOutput() {
+void AGalacticCharacter::SavePixelShaderOutput() {
 	PixelShading->Save();
 }
-void APaintball_StoughtonCharacter::SaveComputeShaderOutput() {
+void AGalacticCharacter::SaveComputeShaderOutput() {
 	ComputeShading->Save();
 }
-void APaintball_StoughtonCharacter::ModifyComputeShaderBlend(float NewScalar) {
+void AGalacticCharacter::ModifyComputeShaderBlend(float NewScalar) {
 	ComputeShaderBlendScalar = NewScalar;
 }
-void APaintball_StoughtonCharacter::Tick(float DeltaSeconds) {
+void AGalacticCharacter::Tick(float DeltaSeconds) {
 	Super::Tick(DeltaSeconds);
 	TotalElapsedTime += DeltaSeconds;
 

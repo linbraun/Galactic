@@ -8,7 +8,7 @@
 #include "FogActor.generated.h"
 
 UCLASS()
-class PAINTBALL_STOUGHTON_API AFogActor : public AActor
+class GALACTIC_API AFogActor : public AActor
 {
 	GENERATED_BODY()
 	
