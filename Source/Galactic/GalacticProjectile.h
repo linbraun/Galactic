@@ -4,10 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Paintball_StoughtonProjectile.generated.h"
+#include "GalacticProjectile.generated.h"
 
 UCLASS(config=Game)
-class APaintball_StoughtonProjectile : public AActor
+class AGalacticProjectile : public AActor
 {
 	GENERATED_BODY()
 
@@ -20,7 +20,7 @@ class APaintball_StoughtonProjectile : public AActor
 	class UProjectileMovementComponent* ProjectileMovement;
 
 public:
-	APaintball_StoughtonProjectile();
+	AGalacticProjectile();
 
 	/** called when projectile hits something */
 	UFUNCTION()

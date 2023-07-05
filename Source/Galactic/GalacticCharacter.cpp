@@ -141,11 +141,11 @@ void AGalacticCharacter::SetupPlayerInputComponent(class UInputComponent* Player
 	// Enable touchscreen input
 	EnableTouchscreenMovement(PlayerInputComponent);
 
-	PlayerInputComponent->BindAction("ResetVR", IE_Pressed, this, &GalacticCharacter::OnResetVR);
+	PlayerInputComponent->BindAction("ResetVR", IE_Pressed, this, &AGalacticCharacter::OnResetVR);
 
 	// Bind movement events
 	PlayerInputComponent->BindAxis("MoveForward", this, &AGalacticCharacter::MoveForward);
-	PlayerInputComponent->BindAxis("MoveRight", this, &APGalacticCharacter::MoveRight);
+	PlayerInputComponent->BindAxis("MoveRight", this, &AGalacticCharacter::MoveRight);
 
 	// We have 2 versions of the rotation bindings to handle different kinds of devices differently
 	// "turn" handles devices that provide an absolute delta, such as a mouse.
@@ -153,7 +153,7 @@ void AGalacticCharacter::SetupPlayerInputComponent(class UInputComponent* Player
 	PlayerInputComponent->BindAxis("Turn", this, &APawn::AddControllerYawInput);
 	PlayerInputComponent->BindAxis("TurnRate", this, &AGalacticCharacter::TurnAtRate);
 	PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
-	PlayerInputComponent->BindAxis("LookUpRate", this, &APGalacticCharacter::LookUpAtRate);
+	PlayerInputComponent->BindAxis("LookUpRate", this, &AGalacticCharacter::LookUpAtRate);
 
 	//ShaderPluginDemo Specific input mappings - LS 2/24/23
 	InputComponent->BindAction("SavePixelShaderOutput", IE_Pressed, this, &
