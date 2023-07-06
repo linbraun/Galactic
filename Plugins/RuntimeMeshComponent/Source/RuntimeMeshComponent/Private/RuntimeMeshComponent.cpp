@@ -1777,7 +1777,7 @@ void URuntimeMeshComponent::UpdateCollision()
 	// New GUID as collision has changed
 	BodySetup->BodySetupGuid = FGuid::NewGuid();
 
-
+#pragma warning(disable : 4668)	//Added warning suppression for packaging - LB 7/6/23
 #if WITH_RUNTIME_PHYSICS_COOKING || WITH_EDITOR
 	// Clear current mesh data
 	BodySetup->InvalidatePhysicsData();

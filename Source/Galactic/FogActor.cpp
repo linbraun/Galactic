@@ -36,7 +36,11 @@ AFogActor::AFogActor():m_wholeTextureRegion(0, 0, 0, 0, m_textureSize, m_texture
 		m_dynamicTexture->CompressionSettings = TextureCompressionSettings::TC_Grayscale;
 		m_dynamicTexture->SRGB = 0;
 		m_dynamicTexture->UpdateResource();
-		m_dynamicTexture->MipGenSettings = TMGS_NoMipmaps;
+	
+		// Added endif to suppress warning when packaging - LB 7/6/23
+		#if WITH_EDITORONLY_DATA
+		m_dynamicTexture->MipGenSettings = TextureMipGenSettings::TMGS_NoMipmaps;
+		#endif
 	}
 	// Initialize array to all black.
 	for (int x = 0; x < m_textureSize; ++x)
@@ -117,6 +121,34 @@ void AFogActor::UpdateTextureRegions(UTexture2D * Texture, int32 MipIndex, uint3
 		RegionData->SrcBpp = SrcBpp;
 		RegionData->SrcData = SrcData;
 
+		// Replaced outdated macro - LB 7/6/23
+		ENQUEUE_RENDER_COMMAND(UpdateTextureRegionsData)([RegionData, bFreeData](
+			FRHICommandListImmediate& RHICmdList)
+			{
+			for (uint32 RegionIndex = 0; RegionIndex < RegionData->NumRegions; ++RegionIndex)
+			{
+			int32 CurrentFirstMip = RegionData->Texture2DResource->GetCurrentFirstMip();
+			if (RegionData->MipIndex >= CurrentFirstMip)
+			{
+			RHIUpdateTexture2D(
+				RegionData->Texture2DResource->GetTexture2DRHI(),
+				RegionData->MipIndex - CurrentFirstMip,
+				RegionData->Regions[RegionIndex],
+				RegionData->SrcPitch,
+				RegionData->SrcData
+				+ RegionData->Regions[RegionIndex].SrcY * RegionData->SrcPitch
+				+ RegionData->Regions[RegionIndex].SrcX * RegionData->SrcBpp
+			);
+			}
+			}
+			if (bFreeData)
+			{
+			FMemory::Free(RegionData->Regions);
+			FMemory::Free(RegionData->SrcData);
+			}
+			delete RegionData;
+			});
+/*
 		ENQUEUE_UNIQUE_RENDER_COMMAND_TWOPARAMETER(UpdateTextureRegionsData,
 FUpdateTextureRegionsData *, RegionData, RegionData, bool, bFreeData, bFreeData, {
 			for (uint32 RegionIndex = 0; RegionIndex < RegionData->NumRegions; ++RegionIndex) {
@@ -133,6 +165,7 @@ FUpdateTextureRegionsData *, RegionData, RegionData, bool, bFreeData, bFreeData,
 			}
 			delete RegionData;
 		});
+*/
 	}
 }
 
