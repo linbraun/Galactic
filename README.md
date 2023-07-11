@@ -25,3 +25,9 @@ Developer, Game Programmer
 - Unreal Engine
 - Visual Studio
 - Microsoft Office Suite
+
+### Features
+- Dynamic API Usage
+- Custom Shaders
+- 2D & 3D Procedural Mesh Components
+- 3D Runtime Mesh Component
