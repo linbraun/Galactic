@@ -168,5 +168,3 @@ FUpdateTextureRegionsData *, RegionData, RegionData, bool, bFreeData, bFreeData,
 */
 	}
 }
-
-/* */

@@ -2,7 +2,6 @@
 
 #include "CubeActor.h"
 
-
 // Sets default values
 // Added procedural mesh generation to constructor - LS 1/23/23
 ACubeActor::ACubeActor() {
@@ -14,14 +13,12 @@ ACubeActor::ACubeActor() {
 void ACubeActor::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 // Called every frame
 void ACubeActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 /*
