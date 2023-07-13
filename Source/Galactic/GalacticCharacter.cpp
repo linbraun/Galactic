@@ -194,7 +194,7 @@ void AGalacticCharacter::OnFire()
 			}
 		}
 	}
-*///Replaced with the following - LS 2/24/23
+*///Replaced with the following for targeted rendering- LS 2/24/23
 	FHitResult HitResult;
 	FVector StartLocation = FirstPersonCameraComponent->GetComponentLocation();
 	FRotator Direction = FirstPersonCameraComponent->GetComponentRotation();
@@ -364,9 +364,8 @@ void APaintball_StoughtonCharacter::Tick(float DeltaTime)
 */// Removed in favor of deltaseconds - LS 2/24/23
 
 /*
-Added plugin shader on destroy - LS 2/24/23
+Added cleanup of plugin shader on destroy - LS 2/24/23
 */
-//Do not forget cleanup :)
 void AGalacticCharacter::BeginDestroy() {
 	Super::BeginDestroy();
 	if (PixelShading) {
