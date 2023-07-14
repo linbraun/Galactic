@@ -1,3 +1,4 @@
+[Portfolio](https://portfolio.lindseybraun.com/#alone) &nbsp;| &nbsp;[Youtube](https://youtu.be/OAErkSDRQiQ)
 # Galactic
 Galactic is a prototype level that I developed to experiment with dynamic APIs and C++ in Unreal Engine. Using custom shaders, I implemented a moving fog texture and the ability to displace UVs in real time. By shooting shader targeted objects, the player can activate its shader in-game and then use button presses to blend the color of the shader. The game level renders 2D and 3D procedural mesh components on startup and a 3D runtime mesh component. 
 
@@ -31,6 +32,3 @@ Developer, Game Programmer
 - Custom Shaders
 - 2D & 3D Procedural Mesh Components
 - 3D Runtime Mesh Component
-
-### Demo
-[Youtube](https://youtu.be/OAErkSDRQiQ)
